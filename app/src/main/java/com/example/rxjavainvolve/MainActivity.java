@@ -10,6 +10,8 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.example.rxjavainvolve.lifecycle.LifeCycleActivity;
+import com.example.rxjavainvolve.viewmodel.ActivityReceive;
+import com.example.rxjavainvolve.viewmodel.MyViewModel;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import io.reactivex.Observable;
@@ -37,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initView();
 //       flatMap();
-        zip();
+//        zip();
 
     }
 
@@ -123,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
     private void initView() {
         mTv = (TextView) findViewById(R.id.tv);
         mTv.setOnClickListener(v -> {
-            startActivity(new Intent(MainActivity.this, LifeCycleActivity.class));
+            startActivity(new Intent(MainActivity.this, ActivityReceive.class));
         });
     }
 }

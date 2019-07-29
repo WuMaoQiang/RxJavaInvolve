@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".lifecycle.LifeCycleActivity"></activity>
+        <activity android:name=".viewmodel.ActivityReceive"></activity>
     </application>
 
 </manifest>
