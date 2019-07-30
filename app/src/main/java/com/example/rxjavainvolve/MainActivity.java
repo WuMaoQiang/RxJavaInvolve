@@ -21,6 +21,7 @@ import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
@@ -34,15 +35,55 @@ public class MainActivity extends AppCompatActivity {
     ApiService mApiService;
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
 //       flatMap();
 //        zip();
-
+//        baseTest();
     }
 
+    private void baseTest() {
+        Observable.create((ObservableOnSubscribe<String>) emitter -> {
+            emitter.onNext("aaa");
+
+            emitter.onNext("bbb");
+            emitter.onNext("ccc");
+            emitter.onNext("ddd");
+            emitter.onComplete();
+
+        }).subscribe(new Observer<String>() {
+            private Disposable mDispose;
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                Log.i(TAG, "onSubscribe: ");
+                mDispose = d;
+            }
+
+            @Override
+            public void onNext(String s) {
+                Log.i(TAG, "onNext: " + s);
+                if ("ccc".equals(s)) {
+                    mDispose.dispose();
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.i(TAG, "onError: ");
+            }
+
+            @Override
+            public void onComplete() {
+                Log.i(TAG, "onComplete: ");
+            }
+        });
+
+    }
 
 
     private void zip() {

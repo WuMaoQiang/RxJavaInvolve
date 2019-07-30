@@ -6,9 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.example.rxjavainvolve.R;
-import com.example.rxjavainvolve.bean;
-
-import io.reactivex.functions.Consumer;
 
 /**
  * description ： TODO:
