@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -23,7 +25,9 @@ import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -45,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
 //       flatMap();
 //        zip();
 //        baseTest();
+
+        LogcatHelper.getInstance(this).start();
+
+
     }
 
     private void baseTest() {
@@ -182,9 +190,7 @@ public class MainActivity extends AppCompatActivity {
         datas.add("qqqqq");
 
         mTv = (TextView) findViewById(R.id.tv);
-        mTv.setOnClickListener(v -> {
-            startActivity(new Intent(MainActivity.this, ActivityReceive.class));
-        });
+        mTv.setOnClickListener(v -> LogcatHelper.getInstance(this).stop());
         mRecyclerView = findViewById(R.id.recyclerView);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(MainActivity.this, 6);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -194,7 +200,6 @@ public class MainActivity extends AppCompatActivity {
                     return 3;
                 }
                 return 2;
-
             }
         });
         mRecyclerView.setLayoutManager(gridLayoutManager);
